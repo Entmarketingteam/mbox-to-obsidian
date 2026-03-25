@@ -97,3 +97,21 @@ FROM "01-Inbox/Gmail-Captures"
 WHERE account = "marketingteam@nickient.com"
 SORT date DESC
 ```
+
+## Machine Map
+
+| Machine | User | Vault Path |
+|---------|------|-----------|
+| Mac (primary) | `/Users/ethanatchley` | `/Users/ethanatchley/Documents/obsidian-vault` |
+| Windows laptop | `C:\Users\ethan.atchley` | `C:\Users\ethan.atchley\Documents\1st vault` |
+
+The script auto-detects OS. You can also pass the zip path as an argument:
+
+```bash
+python mbox_to_obsidian_nickient.py ~/Downloads/takeout-whatever.zip
+```
+
+## Three Machines
+
+The `mbox_extract/` data (90K+ entenmann emails) lives at `/Users/ethanatchley/Documents/mbox_extract/` on the Mac.
+This script reads from a Google Takeout zip — it does NOT read from the mbox_extract folder.

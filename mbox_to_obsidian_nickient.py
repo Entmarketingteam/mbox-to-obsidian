@@ -3,6 +3,11 @@ MBOX -> Obsidian Vault Importer (nickient.com)
 Parses Google Takeout MBOX export and creates markdown notes in the vault.
 Streams from zip -- no full extraction needed.
 Extracts PDF + CSV attachments.
+
+Usage:
+  python mbox_to_obsidian_nickient.py [path_to_takeout.zip]
+
+If no argument given, uses MBOX_ZIP default below.
 """
 
 import zipfile
@@ -13,14 +18,26 @@ import email.policy
 import os
 import re
 import sys
+import platform
 from datetime import datetime
 from html import unescape
 
 # ── Config ──────────────────────────────────────────────────────────────────
-MBOX_ZIP = r"C:\Users\ethan.atchley\Downloads\NICKIENT_TAKEOUT.zip"  # ← UPDATE THIS
+# Auto-detect OS and set paths accordingly
+if platform.system() == "Darwin":  # macOS — /Users/ethanatchley
+    MBOX_ZIP = "/Users/ethanatchley/Downloads/NICKIENT_TAKEOUT.zip"  # ← UPDATE THIS
+    VAULT_BASE = "/Users/ethanatchley/Documents/obsidian-vault"
+else:  # Windows
+    MBOX_ZIP = r"C:\Users\ethan.atchley\Downloads\NICKIENT_TAKEOUT.zip"  # ← UPDATE THIS
+    VAULT_BASE = r"C:\Users\ethan.atchley\Documents\1st vault"
+
+# Override with CLI argument if provided
+if len(sys.argv) > 1:
+    MBOX_ZIP = sys.argv[1]
+
+VAULT_INBOX = os.path.join(VAULT_BASE, "09-Email-Archive")
+VAULT_ATTACHMENTS = os.path.join(VAULT_BASE, "09-Email-Archive", "attachments")
 MBOX_ENTRY = "Takeout/Mail/All mail Including Spam and Trash.mbox"
-VAULT_INBOX = r"C:\Users\ethan.atchley\Documents\1st vault\01-Inbox\Gmail-Captures"
-VAULT_ATTACHMENTS = r"C:\Users\ethan.atchley\Documents\1st vault\01-Inbox\Gmail-Captures\attachments"
 ACCOUNT = "marketingteam@nickient.com"
 
 SKIP_LABELS = {"Trash", "Spam", "Category Promotions", "Category Social", "Category Forums"}
@@ -237,15 +254,23 @@ def process_message(raw_bytes, output_dir, attach_dir, seen_filenames, seen_atta
     for orig_name, saved_name in extracted:
         attach_links.append(f"[[attachments/{saved_name}|{orig_name}]]")
 
+    # Use the vault's 09-Email-Archive frontmatter schema
     note = f"""---
 type: email
-account: "{ACCOUNT}"
-from: "{from_name}"
-from_email: "{from_email_addr}"
-to: "{to_addr[:200]}"
+sender: "{from_name}"
+sender_email: "{from_email_addr}"
+recipient: "{to_addr[:200]}"
 subject: "{subject.replace('"', "'")}"
-date: {dt.strftime("%Y-%m-%dT%H:%M:%S")}
+email_date: {dt.strftime("%Y-%m-%dT%H:%M:%S")}
+account: "{ACCOUNT}"
 labels: [{', '.join(f'"{l}"' for l in display_labels)}]
+related_brand:
+related_campaign:
+related_contact:
+tags:
+  - email
+  - nickient
+created: {date_str}
 status: unprocessed
 ---
 
@@ -329,6 +354,7 @@ def stream_mbox_from_zip(zip_path, entry_name):
 def main():
     print("MBOX -> Obsidian Importer (nickient.com)")
     print("========================================")
+    print(f"Platform: {platform.system()}")
     print(f"Source: {MBOX_ZIP}")
     print(f"Output: {VAULT_INBOX}")
     print(f"Account: {ACCOUNT}")
@@ -339,13 +365,16 @@ def main():
 
     if not os.path.exists(MBOX_ZIP):
         print(f"ERROR: Takeout zip not found at {MBOX_ZIP}")
-        print("Update MBOX_ZIP at the top of this script with the actual filename.")
+        print()
+        print("Usage: python mbox_to_obsidian_nickient.py [path_to_takeout.zip]")
+        print()
+        print("Or update MBOX_ZIP at the top of this script.")
         sys.exit(1)
 
     os.makedirs(VAULT_INBOX, exist_ok=True)
     os.makedirs(VAULT_ATTACHMENTS, exist_ok=True)
 
-    # Pre-load existing filenames to avoid overwriting entagency.co emails
+    # Pre-load existing filenames to avoid overwriting
     existing = set()
     for f in os.listdir(VAULT_INBOX):
         if f.endswith(".md"):
