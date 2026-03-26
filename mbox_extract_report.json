@@ -1,0 +1,351 @@
+{
+  "agency_ops": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\agency_ops",
+    "total_files": 3,
+    "extensions": {
+      ".txt": 1,
+      ".csv": 2
+    },
+    "subfolders": [
+      "meeting_notes"
+    ],
+    "sample_files": [
+      "AGENCY_OPS_REPORT.txt",
+      "basecamp_summary.csv",
+      "internal_emails.csv"
+    ],
+    "sample_content": [
+      {
+        "file": "AGENCY_OPS_REPORT.txt",
+        "first_500_chars": "======================================================================\nENT AGENCY - OPERATIONS EMAIL EXTRACTION REPORT\n======================================================================\nGenerated: 2026-03-21 22:07:22\nSource: C:\\Users\\ejatc\\Documents\\Downloads\\All mail Including Spam and Trash-002 (1).mbox\nTotal messages scanned: 322,202\nForwarding duplicates skipped: 0\nTotal agency ops emails extracted: 16,174\nProcessing time: 445s\n\n-----------------------------------------------------------"
+      },
+      {
+        "file": "basecamp_summary.csv",
+        "first_500_chars": "Project,Date,Activity Type,Subject,From,Who Posted\nUnknown Project,2024-04-12,Activity,Welcome to Basecamp \ud83d\udc4b,\"\"\"Basecamp (Entenmann Enterprise)\"\" <notifications@3.basecamp.com>\",Basecamp\nEntenmann Enterprise,2024-04-14,Activity,Basecamp (Entenmann Enterprise): Here\u2019s the latest activity,\"\"\"Basecamp (Entenmann Enterprise)\"\" <notifications@3.basecamp.com>\",Basecamp\nEntenmann Enterprise,2024-04-14,Activity,Basecamp (Entenmann Enterprise): Here\u2019s the latest activity,\"\"\"Basecamp (Entenmann Enterprise"
+      }
+    ],
+    "total_size_mb": 4.9
+  },
+  "amazon_leads": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\amazon_leads",
+    "total_files": 19,
+    "extensions": {
+      ".csv": 13,
+      ".py": 2,
+      ".txt": 4
+    },
+    "subfolders": [],
+    "sample_files": [
+      "all_leads.csv",
+      "all_leads_clean.csv",
+      "amazon_specific_leads.csv"
+    ],
+    "sample_content": [
+      {
+        "file": "all_leads.csv",
+        "first_500_chars": "\ufeffdate,sender_name,sender_email,company_name,subject,pitch_type,has_amazon_link,replied,body_snippet\n\"Wed, 9 Oct 2024 23:59:56 +0800\",huangrong@baleaf.com,huangrong@baleaf.com,Baleaf,Exciting Collaboration Opportunity with Baleaf!,general_collab,False,False,\"This is a multi-part message in MIME format. ------=_001_NextPart370673556853_=---- Content-Type: text/plain; charset=\"\"us-ascii\"\" Content-Transfer-Encoding: base64 SGkgZGVhciwNCg0KSSBhbSBFbWlseSBmcm9tIEJhbGVhZixhIGxlYWRpbmcgc3BvcnRzd2VhciBi "
+      },
+      {
+        "file": "all_leads_clean.csv",
+        "first_500_chars": "\ufeffdate,sender_name,sender_email,company_name,subject,pitch_type,has_amazon_link,replied,body_snippet\n\"Wed, 9 Oct 2024 23:59:56 +0800\",huangrong@baleaf.com,huangrong@baleaf.com,Baleaf,Exciting Collaboration Opportunity with Baleaf!,general_collab,False,False,\"This is a multi-part message in MIME format. ------=_001_NextPart370673556853_=---- Content-Type: text/plain; charset=\"\"us-ascii\"\" Content-Transfer-Encoding: base64 SGkgZGVhciwNCg0KSSBhbSBFbWlseSBmcm9tIEJhbGVhZixhIGxlYWRpbmcgc3BvcnRzd2VhciBi "
+      }
+    ],
+    "total_size_mb": 151.2
+  },
+  "attachments": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\attachments",
+    "total_files": 0,
+    "extensions": {},
+    "subfolders": [
+      "collagen_creatine",
+      "entenmann",
+      "healthyish",
+      "NOVA"
+    ],
+    "sample_files": [],
+    "sample_content": [],
+    "total_size_mb": 0
+  },
+  "brand_pitches": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\brand_pitches",
+    "total_files": 4,
+    "extensions": {
+      ".csv": 2,
+      ".py": 1,
+      ".txt": 1
+    },
+    "subfolders": [],
+    "sample_files": [
+      "all_brand_pitches.csv",
+      "all_brand_pitches_clean.csv",
+      "deduplicate_pitches.py"
+    ],
+    "sample_content": [
+      {
+        "file": "all_brand_pitches.csv",
+        "first_500_chars": "\ufeffdate,sender_name,sender_email,sender_domain,company_name,subject,pitch_type,total_emails_from_sender,first_contact_date,last_contact_date,body_snippet\n2026-03-19 15:37:08+00:00,Newegg.com,promo@promo.newegg.com,promo.newegg.com,Promo,$699.99 Acer Aspire Go Laptop! $1249.99 Acer Nitro V16 Gaming Laptop!,campaign/promo,305,2025-02-26,2026-03-19,----boundary_152778_8c86ce08-504e-40d5-9bd5-b3431eea240b Content-Type: text/plain; charset=utf-8 Content-Transfer-Encoding: quoted-printable 96* View this"
+      },
+      {
+        "file": "all_brand_pitches_clean.csv",
+        "first_500_chars": "\ufeffdate,sender_name,sender_email,sender_domain,company_name,subject,pitch_type,total_emails_from_sender,first_contact_date,last_contact_date,body_snippet\n2026-03-19 22:38:04+11:00,Ryan & Jesse @ Who Sponsors Stuff,hello@whosponsorsstuff.com,whosponsorsstuff.com,Whosponsorsstuff,\u231b\ufe0f Tickets are *more* than \u00bd gone,outreach,74,2023-03-26,2026-03-19,--_a53a6b74-3961-4dca-bbd2-a2af590cc88a_ Content-Type: text/plain; charset=utf-8 Content-Transfer-Encoding: quoted-printable =F0=9F=8E=9F=EF=B8=8F Tickets "
+      }
+    ],
+    "total_size_mb": 14.0
+  },
+  "chinese_leads": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\chinese_leads",
+    "total_files": 4,
+    "extensions": {
+      ".py": 1,
+      ".csv": 2,
+      ".txt": 1
+    },
+    "subfolders": [],
+    "sample_files": [
+      "deduplicate_leads.py",
+      "international_leads.csv",
+      "international_leads_clean.csv"
+    ],
+    "sample_content": [
+      {
+        "file": "deduplicate_leads.py",
+        "first_500_chars": "\"\"\"\nDeduplicate international_leads.csv using only standard library.\nRemoves internal sender addresses and deduplicates by sender_email + subject.\n\"\"\"\n\nimport csv\nimport os\nfrom collections import Counter, OrderedDict\nfrom datetime import datetime\n\nBASE_DIR = r\"C:\\Users\\ejatc\\Documents\\mbox_extract\\chinese_leads\"\n\n# Internal / forwarding addresses to remove from senders\nINTERNAL_ADDRESSES = {\n    \"marketingteam@nickient.com\",\n    \"brittin@entenmannenterprise.com\",\n    \"nicki.entenmann@gmail.com\""
+      },
+      {
+        "file": "international_leads.csv",
+        "first_500_chars": "\ufeffdate,sender_name,sender_email,sender_domain,company_name,subject,product_category,amazon_store_link,body_snippet,country_guess\nunknown,,kidous.m@inframail.io,inframail.io,Inframail,Our Secret Lead Sourcing Process for Cold Email (Private Tutorial),\"fashion, fitness\",,\"Message-ID: Date: Wed, 29 Jan 2025 18:03:01 +0000 MIME-Version: 1.0 Content-Type: multipart/alternative; boundary=\"\"--_NmP-5507c9d63f9d7005-Part_1\"\" Feedback-ID: ::1.us-east-1.epbACCJLarUaEI78XZoGREJ9LamRjxMH5pM2kZb64rA=:AmazonSES"
+      }
+    ],
+    "total_size_mb": 31.6
+  },
+  "deal_details": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\deal_details",
+    "total_files": 1,
+    "extensions": {
+      ".txt": 1
+    },
+    "subfolders": [
+      "456_Growth",
+      "AG1",
+      "Arrae",
+      "BEAM_TLC",
+      "Beekeepers_Naturals",
+      "CLEARSTEM",
+      "DIME_Beauty",
+      "Hiya_Ecko",
+      "Lumanu_Trend",
+      "Merit_Beauty",
+      "Nutrafol",
+      "OSEA_Malibu",
+      "TULA",
+      "VICI_Collection"
+    ],
+    "sample_files": [
+      "DEAL_DEEP_DIVE.txt"
+    ],
+    "sample_content": [
+      {
+        "file": "DEAL_DEEP_DIVE.txt",
+        "first_500_chars": "================================================================================\nDEAL DEEP DIVE - TOP CONFIRMED BRAND PARTNERSHIPS\nGenerated: 2026-03-21 21:59:26\nScanned: 322,202 emails from C:\\Users\\ejatc\\Documents\\Downloads\\All mail Including Spam and Trash-002 (1).mbox\n================================================================================\n\n============================================================\nBRAND: 456 Growth (Agency - Lumineux, JiYu)\n  Emails: 1767\n  Date range: 2022-07-27 "
+      }
+    ],
+    "total_size_mb": 0.0
+  },
+  "entenmann": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\entenmann",
+    "total_files": 4,
+    "extensions": {
+      ".py": 1,
+      ".csv": 2,
+      ".txt": 1
+    },
+    "subfolders": [
+      "attachments"
+    ],
+    "sample_files": [
+      "deduplicate.py",
+      "entenmann_summary.csv",
+      "entenmann_summary_clean.csv"
+    ],
+    "sample_content": [
+      {
+        "file": "deduplicate.py",
+        "first_500_chars": "\"\"\"\nDeduplicate entenmann_summary.csv by removing forwarded email duplicates.\n\nThese addresses forward ALL email into marketingteam@nickient.com, creating\nduplicate entries in the mbox:\n- brittin@entenmannenterprise.com (9,832 duplicates)\n- nicki.entenmann@gmail.com (6,193 duplicates)\n- nrnaasz@gmail.com (118 duplicates)\n\nStrategy:\n1. Remove all rows where the To field is one of these forwarding addresses\n   (since those emails are forwarded copies of what arrives at marketingteam@)\n2. Also remo"
+      },
+      {
+        "file": "entenmann_summary.csv",
+        "first_500_chars": "Date,From,To,CC,Subject,Has Attachments,Attachment Filenames\n2026-03-19 11:01:26,Emily Atchley <marketingteam@nickient.com>,Collab2 Oeak <collab2@oeak.com>,,Re: Nicki Entenmann,Yes,image.png\n2026-03-19 11:24:35,Thrive Market <hello@thrivemarket.com>,Nicki Entenmann <marketingteam@nickient.com>,,\"Stock up on these now, stress less later \u2705\",No,\n2026-03-19 15:05:11,\"\"\"Basecamp (Entenmann Enterprise)\"\" <notifications@3.basecamp.com>\",nicki.entenmann@gmail.com,,(Entenmann Enterprise) You have 4 to-do"
+      }
+    ],
+    "total_size_mb": 24.7
+  },
+  "financials": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\financials",
+    "total_files": 2,
+    "extensions": {
+      ".txt": 1,
+      ".csv": 1
+    },
+    "subfolders": [
+      "contracts",
+      "invoices",
+      "ndas",
+      "other",
+      "payments",
+      "rate_cards",
+      "tax_docs"
+    ],
+    "sample_files": [
+      "FINANCIAL_REPORT.txt",
+      "financial_summary.csv"
+    ],
+    "sample_content": [
+      {
+        "file": "FINANCIAL_REPORT.txt",
+        "first_500_chars": "======================================================================\nENT AGENCY - FINANCIAL & LEGAL DOCUMENT EXTRACTION REPORT\nGenerated: 2026-03-21 21:43:30\n======================================================================\n\nDate range: 2022-05-20 to 2026-03-19\nTotal messages scanned: 322,202\nFinancial/legal emails found: 1,939\nNoise emails excluded: 320,262\nProcessing time: 4.1 minutes\n\n----------------------------------------\nCOUNTS BY CATEGORY\n----------------------------------------\n "
+      },
+      {
+        "file": "financial_summary.csv",
+        "first_500_chars": "date,from,to,subject,category,attachments,attachment_count\n2022-05-20,\"\"\"Andre @ Client Ascension\"\" <andre@clientascension.com>\",Ethan <marketingteam@nickient.com>,How Oliver signed 34 clients in 12 weeks (~$1.1m in LTV),contracts,,0\n2022-08-08,\"\"\"Ivy M via DocuSign\"\" <dse_NA4@docusign.net>\",\"\"\"Nicki\"\" <marketingteam@nickient.com>\",[To sign] Campaign Agreement with Popcorn Growth,contracts,,0\n2022-08-10,\"\"\"Ivy M via DocuSign\"\" <dse_NA4@docusign.net>\",\"\"\"Nicki\"\" <marketingteam@nickient.com>\",Remi"
+      }
+    ],
+    "total_size_mb": 0.4
+  },
+  "healthyish": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\healthyish",
+    "total_files": 50,
+    "extensions": {
+      ".eml": 50
+    },
+    "subfolders": [
+      "001_attachments",
+      "002_attachments",
+      "003_attachments",
+      "004_attachments",
+      "006_attachments",
+      "022_attachments",
+      "023_attachments",
+      "024_attachments",
+      "025_attachments",
+      "026_attachments"
+    ],
+    "sample_files": [
+      "001_Nicki Entenmann IP Trademark Supplement.eml",
+      "001_RE_ Nicki Entenmann IP Trademark Supplement.eml",
+      "002_RE_ Nicki Entenmann IP Trademark Supplement.eml"
+    ],
+    "sample_content": [
+      {
+        "file": "001_Nicki Entenmann IP Trademark Supplement.eml",
+        "first_500_chars": "X-GM-THRID: 1856952215762023195\nX-Gmail-Labels: Archived,Sent,Opened\nMIME-Version: 1.0\nDate: Thu, 12 Feb 2026 14:31:05 -0600\nMessage-ID: <CADzL1kCFHDD6N_g139jfwDeg0XejZ=wDeWuUnEpk2mxXaJVv=A@mail.gmail.com>\nSubject: Nicki Entenmann IP Trademark Supplement\nFrom: Emily Atchley <marketingteam@nickient.com>\nTo: \"Greg M. Popowitz\" <gmp@assoulineberlowe.com>, Estefania Ochoa <EO@assoulineberlowe.com>\nContent-Type: multipart/mixed; boundary=\"00000000000039f2d5064aa65e19\"\n\n--00000000000039f2d5064aa65e19\n"
+      },
+      {
+        "file": "001_RE_ Nicki Entenmann IP Trademark Supplement.eml",
+        "first_500_chars": "X-GM-THRID: 1856952215762023195\nX-Gmail-Labels: Inbox,Important,Opened,Category Personal\nDelivered-To: marketingteam@nickient.com\nReceived: by 2002:aa6:c65e:0:b0:32d:df17:34d7 with SMTP id e30csp428120lkq;\n        Fri, 27 Feb 2026 14:57:03 -0800 (PST)\nX-Received: by 2002:a05:620a:254e:b0:8c8:e139:b08e with SMTP id\n af79cd13be357-8cbbf3f3792mr1034555185a.33.1772233022925;\n        Fri, 27 Feb 2026 14:57:02 -0800 (PST)\nARC-Seal: i=2; a=rsa-sha256; t=1772233022; cv=pass;\n        d=google.com; s=arc-"
+      }
+    ],
+    "total_size_mb": 47.9
+  },
+  "networking": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\networking",
+    "total_files": 4,
+    "extensions": {
+      ".csv": 3,
+      ".txt": 1
+    },
+    "subfolders": [
+      "analytics_reports"
+    ],
+    "sample_files": [
+      "analytics_emails.csv",
+      "introductions.csv",
+      "NETWORKING_REPORT.txt"
+    ],
+    "sample_content": [
+      {
+        "file": "analytics_emails.csv",
+        "first_500_chars": "date,from,subject,attachments,snippet\n2026-03-19 09:42,Adrianna Barton <adrianna.barton@later.com>,Re: Walmart Fashion - March - Nicki Entenmann Performance Update,,\"Hi Emily, Of course, seeing her fashion sales right now are $2,279.70! Thanks, Adrianna On Thu, Mar 19, 2026 at 9:34 AM Emily Atchley <marketingteam@nickie nt.com> wrote: > Hi! Could you give us an updated amount now that content has gone live? > Thank you! > > On Tue, Mar 17, 2026 at 10:45 AM Adria\"\n2026-03-19 07:41,LTK Creator <no"
+      },
+      {
+        "file": "introductions.csv",
+        "first_500_chars": "date,from,to,subject,body_snippet\n2026-03-18 20:23,Ettika Affiliate Team <notifications@outreach.impact.com>,marketingteam@nickient.com,Meet Your New Ettika Affiliate Manager + Let\u2019s Grow Together \u2728,\"<!DOCTYPE html PUBLIC \"\"-//W3C//DTD XHTML 1.0 Transitional//EN\"\" \"\"http://www.= w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"\"><html dir=3D\"\"ltr\"\" lang=3D\"\"en\"\"= ><head><meta charset=3D\"\"UTF-8\"\"><meta content=3D\"\"width=3Ddevice-width, initi= al-scale=3D1\"\" name=3D\"\"viewport\"\"><meta name=3D\"\"x-apple-"
+      }
+    ],
+    "total_size_mb": 12.2
+  },
+  "nova": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\nova",
+    "total_files": 2,
+    "extensions": {
+      ".csv": 1,
+      ".txt": 1
+    },
+    "subfolders": [
+      "attachments"
+    ],
+    "sample_files": [
+      "nova_emails_summary.csv",
+      "nova_timeline.txt"
+    ],
+    "sample_content": [
+      {
+        "file": "nova_emails_summary.csv",
+        "first_500_chars": "date_str,from,to,cc,subject,match_type,attachments,saved_files,message_id,body_snippet\n\"Mon, 16 May 2022 17:00:37 +0000 (UTC)\",\"\"\"Taylor Williams (via Calendly)\"\" <notifications@calendly.com>\",marketingteam@nickient.com,,\"Reminder: Free Initial Consultation with Taylor Williams at 01:00pm\n (Eastern Time - US & Canada) on Tuesday, May 17, 2022\",body_proximity,,,<9fHdSN7wR8-a3ECJmoAQ5A@geopod-ismtpd-6-0>,\"<!DOCTYPE html PUBLIC \"\"-//W3C//DTD XHTML 1.0 Transitional//EN\"\" \"\"http://www.w3.org/TR/xhtml"
+      },
+      {
+        "file": "nova_timeline.txt",
+        "first_500_chars": "======================================================================\nNOVA PRODUCT EVOLUTION TIMELINE\n======================================================================\n\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n  2022-05 (1 emails)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n  Participants: Taylor Williams (via Calendly)\n  Topics:\n    - Reminder: Free Initial Consultation with Taylor Williams at 01:00pm\n (Eastern Time - US & Canada) on\n\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500"
+      }
+    ],
+    "total_size_mb": 0.3
+  },
+  "product_launch": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\product_launch",
+    "total_files": 1,
+    "extensions": {
+      ".csv": 1
+    },
+    "subfolders": [
+      "attachments",
+      "emails"
+    ],
+    "sample_files": [
+      "summary.csv"
+    ],
+    "sample_content": [
+      {
+        "file": "summary.csv",
+        "first_500_chars": "email_num,date,from,to,subject,attachments\n1,2026-03-19 14:32:31,=?utf-8?b?VUdHwq4=?= <ugg@emails.ugg.com>,marketingteam@nickient.com,LIMITED RELEASE: FLUFF YEAH,\n2,2026-03-17 13:56:01,Emily Atchley <marketingteam@nickient.com>,Abbey Miceli <abbey@456growth.com>,Re: Formal Offer: Nicki Entenmann x Zena Nutrition (March 2026),\n3,2026-03-17 13:50:08,Abbey Miceli <abbey@456growth.com>,Emily Atchley <marketingteam@nickient.com>,Re: Formal Offer: Nicki Entenmann x Zena Nutrition (March 2026),\n4,2026-"
+      }
+    ],
+    "total_size_mb": 0.6
+  },
+  "recent_attachments": {
+    "path": "C:\\Users\\ejatc\\Documents\\mbox_extract\\recent_attachments",
+    "total_files": 0,
+    "extensions": {},
+    "subfolders": [
+      "agreement",
+      "beauty",
+      "brand",
+      "collagen",
+      "contract",
+      "creatine",
+      "deck",
+      "entenmann",
+      "healthyiish",
+      "healthyish",
+      "invoice",
+      "kcm",
+      "launch",
+      "nicki",
+      "nickient",
+      "nova",
+      "product",
+      "proposal"
+    ],
+    "sample_files": [],
+    "sample_content": [],
+    "total_size_mb": 0
+  }
+}

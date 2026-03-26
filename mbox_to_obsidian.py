@@ -17,10 +17,11 @@ from datetime import datetime
 from html import unescape
 
 # ── Config ──────────────────────────────────────────────────────────────────
-MBOX_ZIP = r"C:\Users\ethan.atchley\Downloads\takeout-20260319T153405Z-9-001.zip"
+_HOME = os.path.expanduser("~")
+MBOX_ZIP = os.path.join(_HOME, "Downloads", "takeout-20260319T153405Z-9-001.zip")
 MBOX_ENTRY = "Takeout/Mail/All mail Including Spam and Trash.mbox"
-VAULT_INBOX = r"C:\Users\ethan.atchley\Documents\1st vault\01-Inbox\Gmail-Captures"
-VAULT_ATTACHMENTS = r"C:\Users\ethan.atchley\Documents\1st vault\01-Inbox\Gmail-Captures\attachments"
+VAULT_INBOX = os.path.join(_HOME, "Documents", "ENT-Agency-Vault", "01-Inbox", "Gmail-Captures")
+VAULT_ATTACHMENTS = os.path.join(VAULT_INBOX, "attachments")
 ACCOUNT = "marketingteam@entagency.co"
 
 SKIP_LABELS = {"Trash", "Spam", "Category Promotions", "Category Social", "Category Forums"}

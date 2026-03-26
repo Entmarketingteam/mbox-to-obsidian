@@ -29,7 +29,6 @@ Usage:
 
 import json
 import os
-import platform
 import re
 import subprocess
 import sys
@@ -41,10 +40,8 @@ from html import unescape
 
 # ── Config ──────────────────────────────────────────────────────────────────
 
-if platform.system() == "Darwin":  # macOS
-    VAULT_BASE = "/Users/ethanatchley/Documents/obsidian-vault"
-else:  # Windows
-    VAULT_BASE = r"C:\Users\ethan.atchley\Documents\1st vault"
+_HOME = os.path.expanduser("~")
+VAULT_BASE = os.path.join(_HOME, "Documents", "ENT-Agency-Vault")
 
 VAULT_EMAIL_DIR = os.path.join(VAULT_BASE, "09-Email-Archive")
 VAULT_ATTACHMENTS = os.path.join(VAULT_EMAIL_DIR, "attachments")

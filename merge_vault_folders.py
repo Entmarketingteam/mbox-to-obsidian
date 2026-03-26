@@ -16,17 +16,12 @@ import os
 import sys
 import shutil
 import argparse
-import platform
 import hashlib
 
 # ── Config ──────────────────────────────────────────────────────────────────
 
-if platform.system() == "Darwin":
-    DEFAULT_VAULT = "/Users/ethanatchley/Documents/obsidian-vault"
-elif os.path.exists(r"C:\Users\ejatc"):
-    DEFAULT_VAULT = r"C:\Users\ejatc\Documents\Ent-Agency-vault"
-else:
-    DEFAULT_VAULT = r"C:\Users\ethan.atchley\Documents\1st vault"
+_HOME = os.path.expanduser("~")
+DEFAULT_VAULT = os.path.join(_HOME, "Documents", "ENT-Agency-Vault")
 
 # Old folder → New folder mapping
 # Content from old gets merged INTO new, then old gets deleted

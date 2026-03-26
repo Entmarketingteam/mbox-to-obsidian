@@ -18,18 +18,14 @@ import email.policy
 import os
 import re
 import sys
-import platform
 from datetime import datetime
 from html import unescape
 
 # ── Config ──────────────────────────────────────────────────────────────────
-# Auto-detect OS and set paths accordingly
-if platform.system() == "Darwin":  # macOS — /Users/ethanatchley
-    MBOX_ZIP = "/Users/ethanatchley/Downloads/NICKIENT_TAKEOUT.zip"  # ← UPDATE THIS
-    VAULT_BASE = "/Users/ethanatchley/Documents/obsidian-vault"
-else:  # Windows
-    MBOX_ZIP = r"C:\Users\ethan.atchley\Downloads\NICKIENT_TAKEOUT.zip"  # ← UPDATE THIS
-    VAULT_BASE = r"C:\Users\ethan.atchley\Documents\1st vault"
+# Cross-platform: use home directory detection
+_HOME = os.path.expanduser("~")
+MBOX_ZIP = os.path.join(_HOME, "Downloads", "NICKIENT_TAKEOUT.zip")  # ← UPDATE THIS
+VAULT_BASE = os.path.join(_HOME, "Documents", "ENT-Agency-Vault")
 
 # Override with CLI argument if provided
 if len(sys.argv) > 1:
@@ -354,7 +350,7 @@ def stream_mbox_from_zip(zip_path, entry_name):
 def main():
     print("MBOX -> Obsidian Importer (nickient.com)")
     print("========================================")
-    print(f"Platform: {platform.system()}")
+    print(f"Platform: {sys.platform}")
     print(f"Source: {MBOX_ZIP}")
     print(f"Output: {VAULT_INBOX}")
     print(f"Account: {ACCOUNT}")

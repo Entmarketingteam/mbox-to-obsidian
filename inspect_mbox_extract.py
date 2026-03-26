@@ -4,13 +4,18 @@ and report back the structure so we know how to migrate.
 
 Usage:
   python inspect_mbox_extract.py
-  python inspect_mbox_extract.py "D:\path\to\mbox_extract"
+  python inspect_mbox_extract.py "D:\\path\\to\\mbox_extract"
 """
 
 import os
 import sys
+import io
 import json
 from collections import Counter
+
+# Fix Windows console encoding so emoji/unicode chars don't crash on cp1252
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 BASE = r"C:\Users\ejatc\Documents\mbox_extract"
 if len(sys.argv) > 1:

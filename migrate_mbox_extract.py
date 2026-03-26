@@ -7,31 +7,36 @@ then run this script.
 
 Usage:
   python migrate_mbox_extract.py
-  python migrate_mbox_extract.py --source "D:\path\to\mbox_extract"
+  python migrate_mbox_extract.py --source "D:\\path\\to\\mbox_extract"
   python migrate_mbox_extract.py --dry-run
   python migrate_mbox_extract.py --category entenmann
 """
 
 import os
 import sys
+import io
 import re
 import shutil
 import json
 import argparse
-import platform
 from datetime import datetime
 from html import unescape
 
+# Fix Windows cp1252 encoding for Unicode output
+if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
+
 # ── Config ──────────────────────────────────────────────────────────────────
 
-# Source: the mbox_extract folder on the ejatc machine
-DEFAULT_SOURCE = r"C:\Users\ejatc\Documents\mbox_extract"
+# Cross-platform: use home directory detection
+_HOME = os.path.expanduser("~")
 
-# Destination: vault paths
-if platform.system() == "Darwin":
-    VAULT_BASE = "/Users/ethanatchley/Documents/obsidian-vault"
-else:
-    VAULT_BASE = r"C:\Users\ethan.atchley\Documents\1st vault"
+# Source: the mbox_extract folder
+DEFAULT_SOURCE = os.path.join(_HOME, "Documents", "mbox_extract")
+
+# Destination: vault path
+VAULT_BASE = os.path.join(_HOME, "Documents", "ENT-Agency-Vault")
 
 # Where each mbox_extract category maps to in the vault
 CATEGORY_MAP = {
