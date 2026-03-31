@@ -14,9 +14,20 @@ Usage:
 
 import os
 import sys
+import io
 import shutil
 import argparse
 import hashlib
+
+# ── Fix Windows console encoding (cp1252 → UTF-8) ───────────────────────
+if sys.stdout.encoding != "utf-8":
+    sys.stdout = io.TextIOWrapper(
+        sys.stdout.buffer, encoding="utf-8", errors="replace", line_buffering=True
+    )
+if sys.stderr.encoding != "utf-8":
+    sys.stderr = io.TextIOWrapper(
+        sys.stderr.buffer, encoding="utf-8", errors="replace", line_buffering=True
+    )
 
 # ── Config ──────────────────────────────────────────────────────────────────
 

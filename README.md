@@ -2,143 +2,102 @@
 
 Scripts to consolidate, migrate, and sync the ENT Agency Obsidian vault across three machines.
 
-## The Problem
+## The Problem (Solved)
 
-Three computers, three vault copies, duplicate folder structures (old + new mixed together), 90K+ parsed emails on one machine, 8K+ n8n emails on another, and almost none of it in git.
+Three computers, three vault copies, duplicate folder structures (old + new mixed together), 90K+ parsed emails on one machine, 8K+ n8n emails on another, and no reliable sync method.
+
+**Status as of 2026-03-26:** The vault has been consolidated on the Windows home desktop, the mbox migration is complete (13K files), the folder merge is complete (8,919 files merged, 7 old folders deleted), and Obsidian Sync is live across both machines. Talent profiles (21 creators), brand profiles (18 brands), CRM data, contracts, invoices, Zoom transcripts, and Google Sheets have all been added to the vault.
 
 ## Machine Map
 
-| Machine | User | Vault Path | Vault Name | What's unique |
-|---------|------|-----------|------------|---------------|
-| Mac (daily driver) | `/Users/ethanatchley` | `~/Documents/obsidian-vault` | `obsidian-vault` | Primary machine |
-| Windows work laptop | `C:\Users\ethan.atchley` | `Documents\1st vault` | `1st vault` | 8,400 n8n-captured entagency.co emails |
-| Windows home desktop | `C:\Users\ejatc` | `Documents\Ent-Agency-vault` | `Ent-Agency-vault` | 90K parsed/categorized mbox emails, days of Claude Code restructuring work |
+| Machine | User | Vault Path | Sync Method | Vault ID / Remote |
+|---------|------|-----------|-------------|-------------------|
+| Windows home desktop | `C:\Users\ejatc` | `Documents\ENT-Agency-Vault` | Obsidian Sync | Vault ID: `b457de69b305459a` |
+| Mac (daily driver) | `/Users/ethanatchley` | `~/Documents/obsidian-vault` | Obsidian Sync | Connected to "1st vault" remote |
+| Windows work laptop | `C:\Users\ethan.atchley` | `Documents\1st vault` | Obsidian Sync (TBD) | Not yet connected |
 
-## Duplicate Folder Problem
-
-All three machines have two sets of numbered folders — old structure and new structure living side by side:
-
-| Old (keep content, delete folder) | New (keep folder, merge content into) |
-|-----------------------------------|---------------------------------------|
-| `01-Inbox` | `09-Email-Archive` |
-| `02-Creators` | `08-Talent` |
-| `03-Brands` | `01-Brands-Contacts` |
-| `04-Campaigns` | `02-Campaigns` |
-| `05-ENT-Agency` | `06-Agency-Ops` |
-| `06-Beauty-Creatine-Plus` | `03-Products/Beauty-Creatine-Plus` |
-| `07-Technical` | `07-Knowledge-Base` |
-
-Only 720 files are tracked in git. Everything else is local-only and at risk.
+**Sync method:** Obsidian Sync (not git). The Windows home desktop uploaded 1.12 GB to the "1st vault" remote. The Mac is connected and syncing.
 
 ## Scripts
 
-| Script | Purpose |
-|--------|---------|
-| `merge_vault_folders.py` | Merge duplicate old→new folders, deduplicate, clean up |
-| `inspect_mbox_extract.py` | Inspect parsed mbox data on ejatc machine |
-| `migrate_mbox_extract.py` | Move parsed mbox categories into vault folders |
-| `gws_email_sync.py` | Live Gmail sync via `gws` CLI (replaces n8n) |
-| `mbox_to_obsidian.py` | Bulk import from Takeout zip (entagency.co) |
-| `mbox_to_obsidian_nickient.py` | Bulk import from Takeout zip (nickient.com) |
-| `setup_gws.sh` | One-time gws CLI auth setup |
-| `sync_both_accounts.sh` | Daily sync wrapper for both Gmail accounts |
+| Script | Purpose | Status |
+|--------|---------|--------|
+| `merge_vault_folders.py` | Merge duplicate old->new folders, deduplicate, clean up | DONE |
+| `inspect_mbox_extract.py` | Inspect parsed mbox data on ejatc machine | DONE |
+| `migrate_mbox_extract.py` | Move parsed mbox categories into vault folders | DONE |
+| `enrich_email_links.py` | Cross-link emails to brand/talent profiles | TODO |
+| `gws_email_sync.py` | Live Gmail sync via `gws` CLI (replaces n8n) | TODO |
+| `mbox_to_obsidian.py` | Bulk import from Takeout zip (entagency.co) | Available |
+| `mbox_to_obsidian_nickient.py` | Bulk import from Takeout zip (nickient.com) | Available |
+| `setup_gws.sh` | One-time gws CLI auth setup | TODO |
+| `sync_both_accounts.sh` | Daily sync wrapper for both Gmail accounts | TODO |
 
 ---
 
-## Step-by-Step: Fix Everything
+## Step-by-Step Progress
 
-### STEP 1: On the ejatc home desktop — consolidate the vault
-
-This machine has the most data and the restructured folders. Start here.
+### STEP 1: Clone repo -- DONE
 
 ```bash
-# Clone this repo
 git clone https://github.com/Entmarketingteam/mbox-to-obsidian.git
 cd mbox-to-obsidian
+```
 
-# 1a. Audit — see the current mess
-python merge_vault_folders.py --vault "C:\Users\ejatc\Documents\Ent-Agency-vault" --audit
+### STEP 2: Fix encoding bugs -- DONE
 
-# 1b. Dry run — preview what the merge would do
-python merge_vault_folders.py --vault "C:\Users\ejatc\Documents\Ent-Agency-vault" --dry-run
+Fixed UTF-8/cp1252 encoding issues in the migration scripts that caused crashes on Windows.
 
-# 1c. Do the merge (moves old folder content into new folders, deletes empty old folders)
-python merge_vault_folders.py --vault "C:\Users\ejatc\Documents\Ent-Agency-vault"
+### STEP 3: Run inspect_mbox_extract.py -- DONE
 
-# 1d. Inspect the parsed mbox email data
+```bash
 python inspect_mbox_extract.py
-
-# 1e. Push the inspection report so other machines can see it
-git add mbox_extract_report.json
-git commit -m "mbox_extract inspection report from ejatc"
-git push
 ```
 
-### STEP 2: On the ejatc home desktop — push the clean vault to git
+Audited the parsed mbox data on the ejatc machine. Generated `mbox_extract_report.json`.
+
+### STEP 4: Run migrate_mbox_extract.py -- DONE (13K files migrated)
 
 ```bash
-cd "C:\Users\ejatc\Documents\Ent-Agency-vault"
-git add -A
-git status
-# Review what's being added — should see the new folders and merged content
-git commit -m "Consolidate vault: merge old folders into new structure, add all untracked content"
-git push
+python migrate_mbox_extract.py --source "C:\Users\ejatc\Documents\mbox_extract" --vault "C:\Users\ejatc\Documents\ENT-Agency-Vault"
 ```
 
-**This is the most important step.** After this, everything is safe in git.
+Migrated 13,000+ parsed mbox emails into the vault's `09-Email-Archive/` folder, organized by category (Amazon-Leads, Brand-Pitches, Gmail-Captures, etc.).
 
-### STEP 3: On the ejatc home desktop — migrate parsed mbox emails into vault
+### STEP 5: Run merge_vault_folders.py -- DONE (8,919 files merged, 7 old folders deleted)
 
 ```bash
-cd path\to\mbox-to-obsidian
-
-# 3a. Dry run first — see what would be created
-python migrate_mbox_extract.py --source "C:\Users\ejatc\Documents\mbox_extract" --vault "C:\Users\ejatc\Documents\Ent-Agency-vault" --dry-run
-
-# 3b. Start with a small batch to verify format
-python migrate_mbox_extract.py --source "C:\Users\ejatc\Documents\mbox_extract" --vault "C:\Users\ejatc\Documents\Ent-Agency-vault" --category entenmann --limit 100
-
-# 3c. Check the output in Obsidian — do the notes look right?
-# If yes, run the full migration (category by category):
-python migrate_mbox_extract.py --source "C:\Users\ejatc\Documents\mbox_extract" --vault "C:\Users\ejatc\Documents\Ent-Agency-vault" --category entenmann
-python migrate_mbox_extract.py --source "C:\Users\ejatc\Documents\mbox_extract" --vault "C:\Users\ejatc\Documents\Ent-Agency-vault" --category brand_pitches
-python migrate_mbox_extract.py --source "C:\Users\ejatc\Documents\mbox_extract" --vault "C:\Users\ejatc\Documents\Ent-Agency-vault" --category amazon_leads
-python migrate_mbox_extract.py --source "C:\Users\ejatc\Documents\mbox_extract" --vault "C:\Users\ejatc\Documents\Ent-Agency-vault" --category healthyish
-python migrate_mbox_extract.py --source "C:\Users\ejatc\Documents\mbox_extract" --vault "C:\Users\ejatc\Documents\Ent-Agency-vault" --category nova
-python migrate_mbox_extract.py --source "C:\Users\ejatc\Documents\mbox_extract" --vault "C:\Users\ejatc\Documents\Ent-Agency-vault" --category product_launch
-python migrate_mbox_extract.py --source "C:\Users\ejatc\Documents\mbox_extract" --vault "C:\Users\ejatc\Documents\Ent-Agency-vault" --category recent_attachments
-
-# 3d. Commit the migrated emails
-cd "C:\Users\ejatc\Documents\Ent-Agency-vault"
-git add -A
-git commit -m "Import parsed mbox emails into vault"
-git push
+python merge_vault_folders.py --vault "C:\Users\ejatc\Documents\ENT-Agency-Vault"
 ```
 
-**Note:** 90K+ emails is a LOT for git. Consider whether you want all of them in the vault or just the important categories (entenmann, brand_pitches, healthyish, nova, product_launch). The chinese_leads (31K) are mostly spam — those go to 08-Archive.
+Merged content from old duplicate folders into the new structure. 8,919 files moved, 7 old folders removed.
 
-### STEP 4: On the Mac — pull the clean vault
+### STEP 6: Connect Obsidian Sync on Windows -- DONE (1.12 GB uploaded)
 
-```bash
-cd ~/Documents/obsidian-vault
-git pull
-```
+Connected the Windows home desktop vault to "1st vault" remote via Obsidian Sync.
+- Vault ID: `b457de69b305459a`
+- Uploaded 1.12 GB to the remote
 
-If there are merge conflicts (because the Mac has local changes):
-```bash
-git stash          # save local changes
-git pull           # get the clean state from ejatc
-git stash pop      # re-apply local changes on top
-```
+### STEP 7: Connect Obsidian Sync on Mac -- DONE
 
-Or if the Mac vault is too diverged, fresh clone:
-```bash
-mv ~/Documents/obsidian-vault ~/Documents/obsidian-vault-backup
-cd ~/Documents
-git clone git@github.com:Entmarketingteam/ent-agency-vault.git obsidian-vault
-```
+Connected the Mac vault to "1st vault" remote via Obsidian Sync. Both machines are now syncing.
 
-### STEP 5: On the Mac — set up gws for daily email sync
+### STEP 8: Build talent profiles -- DONE (21 creators)
+
+Built structured profile notes for 21 creators in `08-Talent/`, each with their own subfolder containing contracts, invoices, and related documents.
+
+### STEP 9: Build brand profiles -- DONE (18 brands)
+
+Built structured profile notes for 18 brands in `01-Brands-Contacts/`.
+
+### STEP 10: Add CRM data -- DONE
+
+Added addresses, birthdays, PayPal info, and EIN numbers to talent and brand profiles.
+
+### STEP 11: Parse contracts, invoices, Zoom transcripts, Google Sheets -- DONE
+
+Parsed and imported contracts into `05-Financials/Contracts/`, invoices into `05-Financials/Invoices/`, Zoom transcripts, and Google Sheets data into the vault.
+
+### STEP 12: Set up gws email sync -- TODO
 
 ```bash
 cd ~/Documents/mbox-to-obsidian
@@ -153,54 +112,57 @@ gws auth login  # sign in with marketingteam@nickient.com
 python3 gws_email_sync.py --account marketingteam@nickient.com --days 7
 ```
 
-### STEP 6: On the Windows work laptop — pull the clean vault
+### STEP 13: Kill n8n workflow (if still running) -- TODO
 
-```bash
-cd "C:\Users\ethan.atchley\Documents\1st vault"
-git pull
-```
+Status of n8n is unknown -- it may still be running and capturing emails.
 
-Or fresh clone if too messy:
-```bash
-cd "C:\Users\ethan.atchley\Documents"
-mv "1st vault" "1st vault-backup"
-git clone git@github.com:Entmarketingteam/ent-agency-vault.git "1st vault"
-```
-
-### STEP 7: Kill the n8n email workflow
-
-Once gws sync is working on the Mac, disable the n8n email capture workflow:
 - Go to https://entagency.app.n8n.cloud
 - Find workflow ID `B3bbBIvyfnuFXcze` ("Gmail -> Obsidian Inbox")
 - Deactivate it
 
+### STEP 14: Run enrich_email_links.py -- TODO
+
+Cross-link emails to brand and talent profiles:
+
+```bash
+python enrich_email_links.py --vault "C:\Users\ejatc\Documents\ENT-Agency-Vault"
+```
+
 ---
 
-## Final State
-
-After all steps:
+## Current Vault Structure
 
 ```
-obsidian-vault/
-  00-Dashboard/
-  01-Brands-Contacts/     ← brands + contacts CRM
-  02-Campaigns/           ← campaign tracking
-  03-Products/            ← KCM, Healthyiish, NOVA, Beauty Creatine Plus
-  04-Content/             ← content ideas, calendar
-  05-Financials/          ← invoices, contracts
-  06-Agency-Ops/          ← SOPs, meeting notes
-  06-Research/            ← substacks, research
-  07-Knowledge-Base/      ← industry knowledge
-  08-Archive/             ← archived/spam (chinese_leads etc)
-  08-Talent/              ← talent profiles
-  09-Email-Archive/       ← ALL emails, both accounts
-    Gmail-Captures/       ← n8n legacy emails
-    Amazon-Leads/         ← parsed amazon leads
-    Brand-Pitches/        ← parsed brand pitches
-    attachments/          ← extracted attachments
+ENT-Agency-Vault/
+  .obsidian/               -- Obsidian config (synced)
+  00-Dashboard/            -- Home, MOCs, dashboards
+  01-Brands-Contacts/      -- 18 brand profiles + contacts CRM
+  02-Campaigns/            -- campaign tracking
+  03-Products/             -- KCM, Healthyiish, NOVA, Beauty Creatine Plus
+  04-Content/              -- content ideas, calendar
+  05-Financials/           -- invoices, contracts, revenue tracking
+    Contracts/
+    Invoices/
+  06-Agency-Ops/           -- SOPs, meeting notes
+  06-Research/             -- substacks, research
+  07-Knowledge-Base/       -- industry knowledge
+  08-Archive/              -- archived/spam (chinese_leads etc)
+  08-Talent/               -- 21 creator profiles with subfolders
+    Ann Schulte/
+    Courtney Pappy/
+    Ellen Ludwig/
+    Nicki Entenmann/
+    Sara Preston/
+    ...
+  09-Email-Archive/        -- ALL emails, both accounts
+    Amazon-Leads/          -- parsed amazon leads
+    Brand-Pitches/         -- parsed brand pitches
+    Gmail-Captures/        -- n8n legacy emails
+    Quick-Notes/           -- quick capture notes
+    attachments/           -- extracted attachments
 ```
 
-No duplicate folders. One structure. Everything in git. Daily sync via gws CLI.
+Synced via Obsidian Sync. No git dependency for vault data.
 
 ---
 
@@ -228,7 +190,7 @@ status: unprocessed
 ---
 ```
 
-## Daily Sync (after setup)
+## Daily Sync (after gws setup)
 
 ```bash
 cd ~/Documents/mbox-to-obsidian
