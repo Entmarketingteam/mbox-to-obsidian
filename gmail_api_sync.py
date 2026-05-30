@@ -153,7 +153,7 @@ def do_auth(account_key):
         flow = InstalledAppFlow.from_client_secrets_file(
             str(tmp_creds), scopes=SCOPES
         )
-        creds = flow.run_local_server(port=0)
+        creds = flow.run_local_server(port=0, prompt="consent select_account")
     finally:
         tmp_creds.unlink(missing_ok=True)
 
@@ -675,6 +675,34 @@ def main():
     if errors and not args.dry_run:
         alert_msg = "Gmail sync errors:\n" + "\n".join(f"  - {e}" for e in errors)
         send_slack_alert(alert_msg)
+
+    # ── Post-sync: enrich new emails with brand wikilinks ────────────────
+    total_created = sum(
+        s.get("created", 0) for s in all_stats.values() if isinstance(s, dict)
+    )
+    if total_created > 0 and not args.dry_run:
+        print(f"\n{'='*60}")
+        print("Post-sync: Running email -> brand enrichment...")
+        try:
+            enrich_script = Path(__file__).parent / "enrich_email_links.py"
+            result = subprocess.run(
+                [sys.executable, str(enrich_script)],
+                capture_output=True, text=True, timeout=300,
+                encoding="utf-8", errors="replace",
+            )
+            # Extract just the results summary from output
+            for line in result.stdout.splitlines():
+                if any(k in line for k in ["Files scanned", "Files updated",
+                                            "Already linked", "enriched"]):
+                    print(f"  {line.strip()}")
+            if result.returncode != 0:
+                print(f"  WARNING: Enrichment exited with code {result.returncode}")
+                if result.stderr:
+                    print(f"  {result.stderr[:300]}")
+        except Exception as e:
+            print(f"  WARNING: Enrichment failed: {e}")
+    elif total_created == 0:
+        print("\nNo new emails created — skipping enrichment pass.")
 
 
 if __name__ == "__main__":
