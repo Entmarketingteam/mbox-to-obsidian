@@ -15,3 +15,7 @@ token_*.json
 # OS
 .DS_Store
 Thumbs.db
+
+# Ad-hoc dumps / reports
+out/
+*.log
